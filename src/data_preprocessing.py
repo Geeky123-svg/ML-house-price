@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
@@ -31,10 +32,10 @@ def prepare_data(data_path):
     df = load_data(data_path)
 
     x = df.drop("SalePrice", axis=1)
-    y = df["SalePrice"]
+    y = np.log1p(df["SalePrice"])
 
     X_train, X_val, y_train, y_val = train_test_split(
-        x, y, test_size=0.2, random_state=42
+        x, y, test_size=0.1, random_state=41
     )
 
     preprocessor = pre_processor(X_train)
